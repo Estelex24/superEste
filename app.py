@@ -25,6 +25,10 @@ def init_supabase():
     if supabase_url and supabase_key:
         return create_client(supabase_url, supabase_key)
     return None
+# Create dropdown list
+options = ["Top Shelf", "Middle Shelf", "Fruits", "Vegetables"]
+user_selection = st.selectbox("Select an option:", options)
+submit_button = st.button("Save to Database")
 
 # Create text input
 user_input = st.text_area("Enter your text:", height=150)
@@ -42,7 +46,7 @@ if submit_button:
             
             # Insert data into a 'notes' table (create this table in your Supabase dashboard)
             response = supabase.table('notes').insert({"content": user_input}).execute()
-            
+            response = supabase.table('notes').insert({"item": user_selection}).execute()
             # Check for successful insertion
             if len(response.data) > 0:
                 st.success("Successfully saved to database!")
