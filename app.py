@@ -64,7 +64,7 @@ def display_saved_notes(supabase):
                 for note in notes:
                     with st.expander(f"Product: {note['content']}"):
                         st.write(note['item'])
-                        col1, col2 = st.columns(3)
+                        col1, col2 = st.columns(2)
                         with col1:
                             if st.button(f"Bought", key=f"itemb_{note['id']}"):
                                 supabase.table('notes').update({"item": "Bought"}).eq('id', note['id']).execute()
@@ -73,7 +73,6 @@ def display_saved_notes(supabase):
                             if st.button(f"Not Bought {note['item']}", key=f"itemnb_{note['id']}"):
                                 supabase.table('notes').update({"item": "Not bought"}).eq('id', note['id']).execute()
                                 st.experimental_rerun()
-                       
         else:
             st.info("No notes found in the database")
     except Exception as e:
