@@ -73,10 +73,10 @@ if st.sidebar.checkbox("Show saved notes", value=True) and (supabase_url and sup
                     grouped_notes[shelf] = []
                 grouped_notes[shelf].append(note)
             
-           for shelf, notes in grouped_notes.items():
-                st.markdown(f"### {shelf}")
-                for note in notes:
-                    with st.expander(f"Product: {note['content']}"):
+               for shelf, notes in grouped_notes.items():
+                    st.markdown(f"### {shelf}")
+                    for note in notes:
+                        with st.expander(f"Product: {note['content']}"):
                         st.write(note['item'])
                         col1, col2, col3 = st.columns(3)
                         with col1:
