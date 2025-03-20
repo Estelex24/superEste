@@ -75,8 +75,8 @@ if st.sidebar.checkbox("Show saved notes") and (supabase_url and supabase_key):
             for shelf, notes in grouped_notes.items():
                 st.markdown(f"### {shelf}")
                 for note in notes:
-                    with st.expander(f"Note ID: {note['id']}"):
-                        st.write(note['content'])
+                    with st.expander(f"Product: {note['content']}"):
+                        st.write(note['id'])
                         if st.button(f"Delete {note['id']}", key=f"del_{note['id']}"):
                             supabase.table('notes').delete().eq('id', note['id']).execute()
                             st.experimental_rerun()
