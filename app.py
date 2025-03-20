@@ -65,17 +65,27 @@ if st.sidebar.checkbox("Show saved notes") and (supabase_url and supabase_key):
         
         if len(response.data) > 0:
             st.subheader("Saved Notes")
-            for item in response.data:
-                with st.expander(f"Note ID: {item['id']}"):
-                    st.write(item['content'])
-                    if st.button(f"Delete {item['id']}", key=f"del_{item['id']}"):
-                        supabase.table('notes').delete().eq('id', item['id']).execute()
-                        st.experimental_rerun()
+            grouped_notes = {}
+            for note in response.data:
+                shelf = note.get("item", "Uncategorized")
+                if shelf not in grouped_notes:
+                    grouped_notes[shelf] = []
+                grouped_notes[shelf].append(note)
+            
+            for shelf, notes in grouped_notes.items():
+                st.markdown(f"### {shelf}")
+                for note in notes:
+                    with st.expander(f"Note ID: {note['id']}"):
+                        st.write(note['content'])
+                        if st.button(f"Delete {note['id']}", key=f"del_{note['id']}"):
+                            supabase.table('notes').delete().eq('id', note['id']).execute()
+                            st.experimental_rerun()
         else:
             st.info("No notes found in the database")
             
     except Exception as e:
         st.error(f"Error retrieving notes: {e}")
+
 
 # Instructions in the sidebar
 with st.sidebar:
