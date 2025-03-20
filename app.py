@@ -28,7 +28,7 @@ def init_supabase():
 # Create dropdown list
 options = ["Top Shelf", "Middle Shelf", "Fruits", "Vegetables"]
 user_selection = st.selectbox("Select an option:", options)
-submit_button = st.button("Save to Database")
+
 
 # Create text input
 user_input = st.text_area("Enter your text:", height=150)
