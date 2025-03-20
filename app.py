@@ -78,7 +78,9 @@ if st.sidebar.checkbox("Show saved notes", value=True) and (supabase_url and sup
                 for note in notes:
                     with st.expander(f"Product: {note['content']}"):
                           st.write(note['item'])
-                          col1, col2, col3 = st.columns(3)
+                          col1=st.column
+                          col2=st.column
+                          col3=st.column
                         with col1:
                             if st.button(f"Bought {note['item']}", key=f"bought_{note['id']}"):
                                 supabase.table('notes').update({"bought": True}).eq('item', note['id']).execute()
