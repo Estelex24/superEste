@@ -71,8 +71,7 @@ if st.sidebar.checkbox("Show saved notes", value=True) and (supabase_url and sup
                 shelf = note.get("item", "Uncategorized")
                 if shelf not in grouped_notes:
                     grouped_notes[shelf] = []
-                grouped_notes[shelf].append(note)
-            
+                    grouped_notes[shelf].append(note)
                for shelf, notes in grouped_notes.items():
                     st.markdown(f"### {shelf}")
                     for note in notes:
