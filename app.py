@@ -1,0 +1,81 @@
+import streamlit as st
+import os
+from supabase import create_client
+
+# Set up page config
+st.set_page_config(page_title="Supabase Demo App", page_icon="📊")
+
+# App title and description
+st.title("Supabase Integration Demo")
+st.write("Enter text below to store in your Supabase database")
+
+# Initialize Supabase client
+# In a real app, use st.secrets or environment variables for these
+supabase_url = st.sidebar.text_input("Supabase URL", type="password")
+supabase_key = st.sidebar.text_input("Supabase API Key", type="password")
+
+# Function to initialize Supabase connection
+def init_supabase():
+    if supabase_url and supabase_key:
+        return create_client(supabase_url, supabase_key)
+    return None
+
+# Create text input
+user_input = st.text_area("Enter your text:", height=150)
+submit_button = st.button("Save to Database")
+
+# Main logic
+if submit_button:
+    if not user_input:
+        st.error("Please enter some text before submitting")
+    elif not (supabase_url and supabase_key):
+        st.error("Please provide both Supabase URL and API key")
+    else:
+        try:
+            supabase = init_supabase()
+            
+            # Insert data into a 'notes' table (create this table in your Supabase dashboard)
+            response = supabase.table('notes').insert({"content": user_input}).execute()
+            
+            # Check for successful insertion
+            if len(response.data) > 0:
+                st.success("Successfully saved to database!")
+                st.json(response.data[0])  # Display the saved record
+            else:
+                st.error("Failed to save data")
+                
+        except Exception as e:
+            st.error(f"Error: {e}")
+
+# Display saved notes
+if st.sidebar.checkbox("Show saved notes") and (supabase_url and supabase_key):
+    try:
+        supabase = init_supabase()
+        response = supabase.table('notes').select("*").order('created_at', desc=True).execute()
+        
+        if len(response.data) > 0:
+            st.subheader("Saved Notes")
+            for item in response.data:
+                with st.expander(f"Note ID: {item['id']}"):
+                    st.write(item['content'])
+                    if st.button(f"Delete {item['id']}", key=f"del_{item['id']}"):
+                        supabase.table('notes').delete().eq('id', item['id']).execute()
+                        st.experimental_rerun()
+        else:
+            st.info("No notes found in the database")
+            
+    except Exception as e:
+        st.error(f"Error retrieving notes: {e}")
+
+# Instructions in the sidebar
+with st.sidebar:
+    st.subheader("How to use this app")
+    st.write("""
+    1. Enter your Supabase URL and API key in the fields above
+    2. Create a table named 'notes' in your Supabase dashboard with columns:
+        - id (int, primary key)
+        - content (text)
+        - created_at (timestamp with timezone, default: now())
+    3. Enter text in the main panel and click 'Save to Database'
+    4. Check 'Show saved notes' to view and manage your saved entries
+    """)
