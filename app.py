@@ -4,7 +4,7 @@ from supabase import create_client
 
 # Set up page config
 st.set_page_config(page_title="Supabase Demo App", page_icon="📊")
-st.sidebar.checkbox(value=True)
+
 
 # App title and description
 st.title("Supabase Integration Demo")
@@ -59,7 +59,7 @@ if submit_button:
             st.error(f"Error: {e}")
 
 # Display saved notes
-if st.sidebar.checkbox("Show saved notes") and (supabase_url and supabase_key):
+if st.sidebar.checkbox("Show saved notes", value=True) and (supabase_url and supabase_key):
     try:
         supabase = init_supabase()
         response = supabase.table('notes').select("*").order('created_at', desc=True).execute()
