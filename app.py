@@ -9,10 +9,16 @@ st.set_page_config(page_title="Supabase Demo App", page_icon="📊")
 st.title("Supabase Integration Demo")
 st.write("Enter text below to store in your Supabase database")
 
-# Initialize Supabase client
-# In a real app, use st.secrets or environment variables for these
-supabase_url = st.sidebar.text_input("Supabase URL", type="password")
-supabase_key = st.sidebar.text_input("Supabase API Key", type="password")
+# Initialize Supabase client with secrets from Streamlit's secrets management
+try:
+    # Access secrets from the streamlit secrets management
+    supabase_url = st.secrets["SUPABASE_URL"]
+    supabase_key = st.secrets["SUPABASE_KEY"]
+    supabase = create_client(supabase_url, supabase_key)
+    connection_status = "✅ Connected to Supabase"
+except Exception as e:
+    connection_status = f"❌ Connection error: {str(e)}"
+    supabase = None
 
 # Function to initialize Supabase connection
 def init_supabase():
