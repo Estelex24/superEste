@@ -45,8 +45,8 @@ if submit_button:
             supabase = init_supabase()
             
             # Insert data into a 'notes' table (create this table in your Supabase dashboard)
-            response = supabase.table('notes').insert({"content": user_input}).execute()
-            response = supabase.table('notes').insert({"item": user_selection}).execute()
+            response = supabase.table('notes').insert({"content": user_input, "item": user_selection}).execute()
+          
             # Check for successful insertion
             if len(response.data) > 0:
                 st.success("Successfully saved to database!")
