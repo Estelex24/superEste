@@ -81,15 +81,15 @@ if st.sidebar.checkbox("Show saved notes", value=True) and (supabase_url and sup
                           col1=st.column
                           col2=st.column
                           col3=st.column
-                        with col1:
+                        with col1
                             if st.button(f"Bought {note['item']}", key=f"bought_{note['id']}"):
                                 supabase.table('notes').update({"bought": True}).eq('item', note['id']).execute()
                                 st.experimental_rerun()
-                        with col2:
+                        with col2
                             if st.button(f"Not Bought {note['item']}", key=f"not_bought_{note['id']}"):
                                 supabase.table('notes').update({"bought": False}).eq('item', note['id']).execute()
                                 st.experimental_rerun()
-                        with col3:
+                        with col3
                             if st.button(f"Delete {note['id']}", key=f"del_{note['id']}"):
                                 supabase.table('notes').delete().eq('id', note['id']).execute()
                                 st.experimental_rerun()
