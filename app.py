@@ -3,7 +3,7 @@ import os
 from supabase import create_client
 
 # Set up page config
-st.set_page_config(page_title="Supabase Demo App", page_icon="📊")
+st.set_page_config(page_title="Shoping List", page_icon="📊")
 
 
 # App title and description
