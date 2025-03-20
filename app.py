@@ -28,8 +28,8 @@ connection_status = "✅ Connected to Supabase" if supabase else "❌ Connection
 #user_selection = st.selectbox("Select an option:", options)
 
 # Create text input
-user_input = st.text_input("Enter your text:")
-submit_button = st.button("Save to Database")
+user_input = st.text_input("Enter new item:")
+submit_button = st.button("Save to List")
 
 def save_note_to_db(supabase, content, item):
     try:
