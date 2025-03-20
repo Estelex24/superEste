@@ -66,11 +66,11 @@ def display_saved_notes(supabase):
                         st.write(note['item'])
                         col1, col2, col3 = st.columns(3)
                         with col1:
-                            if st.button(f"Bought", key=f"item{note['id']}"):
+                            if st.button(f"Bought", key=f"itemb_{note['id']}"):
                                 supabase.table('notes').update({"item": "Bought"}).eq('id', note['item']).execute()
                                 st.experimental_rerun()
                         with col2:
-                            if st.button(f"Not Bought {note['item']}", key=f"item{note['id']}"):
+                            if st.button(f"Not Bought {note['item']}", key=f"itemnb_{note['id']}"):
                                 supabase.table('notes').update({"item": "Not bought"}).eq('id', note['item']).execute()
                                 st.experimental_rerun()
                         with col3:
