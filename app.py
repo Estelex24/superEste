@@ -50,7 +50,7 @@ if submit_button:
             # Check for successful insertion
             if len(response.data) > 0:
                 st.success("Successfully saved to database!")
-                st.json(response.data[0])  # Display the saved record
+                #st.json(response.data[0])  # Display the saved record
             else:
                 st.error("Failed to save data")
                 
