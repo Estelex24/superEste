@@ -24,8 +24,8 @@ supabase = init_supabase()
 connection_status = "✅ Connected to Supabase" if supabase else "❌ Connection error"
 
 # Create dropdown list
-options = ["Top Shelf", "Middle Shelf", "Fruits", "Vegetables"]
-user_selection = st.selectbox("Select an option:", options)
+#options = ["Top Shelf", "Middle Shelf", "Fruits", "Vegetables"]
+#user_selection = st.selectbox("Select an option:", options)
 
 # Create text input
 user_input = st.text_input("Enter your text:")
