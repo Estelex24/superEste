@@ -54,7 +54,7 @@ def display_saved_notes(supabase):
     try:
         response = supabase.table('notes').select("*").order('created_at', desc=True).execute()
         if response.data:
-            st.subheader("Saved Notes")
+            st.subheader("Saved Items")
             grouped_notes = defaultdict(list)
             for note in response.data:
                 grouped_notes[note.get("item", "Uncategorized")].append(note)
