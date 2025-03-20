@@ -7,8 +7,8 @@ st.set_page_config(page_title="Shoping List", page_icon="📊")
 
 
 # App title and description
-st.title("Supabase Integration Demo")
-st.write("Enter text below to store in your Supabase database")
+st.title("Shoping List")
+st.write("Let's have some food :D!")
 
 # Initialize Supabase client with secrets from Streamlit's secrets management
 try:
