@@ -31,7 +31,7 @@ user_selection = st.selectbox("Select an option:", options)
 
 
 # Create text input
-user_input = st.text_area("Enter your text:", height=1)
+user_input = st.text_input("Enter your text:", height=1)
 submit_button = st.button("Save to Database")
 
 # Main logic
