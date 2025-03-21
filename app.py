@@ -33,7 +33,7 @@ submit_button = st.button("Save to List")
 
 def save_note_to_db(supabase, content, item):
     try:
-        response = supabase.table('notes').insert({"content": content, "item": item}).execute()
+        response = supabase.table('notes').insert({"item": item}).execute()
         if response.data:
             st.success("Successfully saved to database!")
         else:
