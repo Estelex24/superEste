@@ -48,7 +48,7 @@ if submit_button:
     elif not supabase:
         st.error("Please provide both Supabase URL and API key")
     else:
-        save_note_to_db(supabase, user_input, user_selection)
+        save_note_to_db(supabase, user_input)
 
 def display_saved_notes(supabase):
     try:
