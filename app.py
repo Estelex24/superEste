@@ -31,9 +31,9 @@ connection_status = "✅ Connected to Supabase" if supabase else "❌ Connection
 user_input = st.text_input("Enter new item:")
 submit_button = st.button("Save to List")
 
-def save_note_to_db(supabase, content, item):
+def save_note_to_db(supabase, content):
     try:
-        response = supabase.table('notes').insert({"item": item}).execute()
+        response = supabase.table('notes').insert({"content": content}).execute()
         if response.data:
             st.success("Successfully saved to database!")
         else:
